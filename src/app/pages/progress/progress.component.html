@@ -1,3 +1,37 @@
-<p>
-  progress works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Barra de progreso</h4>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="progresoAzul" aria-valuemin="0" aria-valuemax="100" [style.width]="progresoAzul + '%'"
+            style="width: 75%"></div>
+        </div>
+        <div class="progress mt-2">
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+            [attr.aria-valuenow]="progresoVerde" aria-valuemin="0" aria-valuemax="100" [style.width]="progresoVerde + '%'"
+            style="width: 75%"></div>
+        </div>
+      </div>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <!-- No es necesario crear una función de una sola línea en el .ts-->
+        <app-incrementador (cambioValor)="progresoAzul = $event" nombre="Progreso Azul" [progreso]="progresoAzul"></app-incrementador>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <app-incrementador (cambioValor)="progresoVerde = $event" nombre="Progreso Verde" [progreso]="progresoVerde"></app-incrementador>
+      </div>
+    </div>
+  </div>
+</div>
