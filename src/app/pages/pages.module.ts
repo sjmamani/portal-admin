@@ -16,6 +16,7 @@ import { SharedModule } from '../shared/shared.module';
 // temporal
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficaDonaComponent } from '../components/grafica-dona/grafica-dona.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GraficaDonaComponent } from '../components/grafica-dona/grafica-dona.co
     ProgressComponent,
     Graficas1Component,
     IncrementadorComponent,
-    GraficaDonaComponent
+    GraficaDonaComponent,
+    AccountSettingsComponent
   ],
   exports: [
     PagesComponent,
