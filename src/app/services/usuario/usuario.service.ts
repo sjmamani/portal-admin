@@ -18,7 +18,7 @@ export class UsuarioService {
 
   constructor(private http: HttpClient, private router: Router) {
     this.cargarStorage();
-   }
+  }
 
   cargarStorage() {
     if (localStorage.getItem("token")) {
@@ -90,6 +90,17 @@ export class UsuarioService {
           return res.usuario;
         })
       )
+  }
 
+  actualizarUsuario(usuario: Usuario) {
+    return this.http.put(`${this.url}/usuarios/${usuario._id}?token=${this.token}`, usuario)
+      .pipe(
+        map((res: any) => {
+          this.guardarStorage(res.usuario._id, this.token, res.usuario)
+          swal('Usuario actualizado', usuario.nombre, 'success');
+
+          return true;
+        })
+      );
   }
 }
