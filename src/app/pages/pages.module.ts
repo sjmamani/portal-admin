@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PipesModule } from '../pipes/pipes.module';
 
 import { PAGES_ROUTES } from './pages.routes';
 
@@ -44,6 +45,7 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   imports: [
     CommonModule,
+    PipesModule,
     SharedModule,
     PAGES_ROUTES,
     FormsModule,
