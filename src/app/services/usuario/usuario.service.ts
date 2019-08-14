@@ -21,7 +21,7 @@ export class UsuarioService {
     private http: HttpClient,
     private router: Router,
     private _subirArchivoService: SubirArchivoService
-    ) {
+  ) {
     this.cargarStorage();
   }
 
@@ -93,7 +93,12 @@ export class UsuarioService {
         map((res: any) => {
           swal("Usuario creado", usuario.email, "success");
           return res.usuario;
-        })
+        },
+          (err: any) => {
+            swal("Error", err.message, "error");
+            return;
+          }
+        )
       )
   }
 
@@ -101,7 +106,9 @@ export class UsuarioService {
     return this.http.put(`${this.url}/usuarios/${usuario._id}?token=${this.token}`, usuario)
       .pipe(
         map((res: any) => {
-          this.guardarStorage(res.usuario._id, this.token, res.usuario)
+          if (usuario._id === this.usuario._id) {
+            this.guardarStorage(res.usuario._id, this.token, res.usuario)
+          }
           swal('Usuario actualizado', usuario.nombre, 'success');
 
           return true;
@@ -119,5 +126,28 @@ export class UsuarioService {
       .catch(res => {
         console.log(res);
       });
+  }
+
+  cargarUsuarios(desde: number) {
+    return this.http.get(`${URL_SERVICE}/usuarios?desde=${desde}`);
+  }
+
+  buscarUsuarios(termino: string) {
+    return this.http.get(`${URL_SERVICE}/busqueda/coleccion/usuarios/${termino}`)
+      .pipe(
+        map((res: any) => {
+          return res.usuarios;
+        })
+      )
+  }
+
+  borrarUsuario(id: string) {
+    return this.http.delete(`${URL_SERVICE}/usuarios/${id}?token=${this.token}`)
+      .pipe(
+        map(res => {
+          swal("Usuario eliminado", "Se ha eliminado el usuario", "success");
+          return true;
+        })
+      )
   }
 }
