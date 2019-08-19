@@ -1,0 +1,71 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <input type="text" (keyup)="buscarHospitales($event.target.value)" class="form-control"
+          placeholder="Buscar hospital...">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+
+  <div class="col-sm-12 ">
+
+    <div class="alert alert-warning text-center">
+      <strong>Cargando</strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between">
+          <h3>Hospitales registrados (<small>{{totalHospitales}}</small>)</h3>
+          <button class="btn btn-primary" (click)="modalCreacion()"><i class="fa fa-plus"></i> Crear hospital</button>
+        </div>
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Hospital</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hospital of hospitales">
+              <td class="w70">
+                <img [src]="hospital.img | imagen: 'hospital'" class="img-50 img-circle pointer"
+                  (click)="abrirModal(hospital._id)">
+              </td>
+              <td>
+                <!-- El name="nombre" puede que sea innecesario -->
+                <input type="text" [(ngModel)]="hospital.nombre" name="nombre" class="form-control">
+              </td>
+              <td>
+                <button class="btn btn-primary" (click)="actualizarHospital(hospital)">
+                  <i class="fa fa-save"></i>
+                </button>
+                <button class="btn btn-danger" (click)="borrarHospital(hospital)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
